@@ -53,17 +53,15 @@ pipeline {
         stage('Push updated kubernetes deployment file onto GitHub'){
             steps{
                 script{
+                    withCredentials([usernamePassword(credentialsId: 'github-account', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh """
                         git config user.email 'fitoni77@gmail.com'
                         git config user.name 'fitoni'
                         git add deploymentservice.yaml
                         git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'
+                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/mrdevops-gitops.git HEAD:main
                     """     
-                    withCredentials([gitUsernamePassword(credentialsId: 'github-account', gitToolName: 'Default')]) {
-                        echo "Sukses login ke GitHub via Jenkins API"
-                        echo "..........."
-                        sh "git push https://github.com/fitoni/mrdevops-gitops.git main"
-                    }                                      
+                    }                    
                 }
             }
         }
