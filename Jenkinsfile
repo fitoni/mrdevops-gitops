@@ -42,10 +42,12 @@ pipeline {
             steps{
                 script{
                     //sh "build(job: 'mrdevops-cd', parameters: [string(name: 'BUILDNUMBER', value: ${VERSION})])"     
-                    //sh 'build(job: mrdevops-cd, parameters: [string(name: 'BUILDNUMBER', value: '8')])'      
-                    echo "${VERSION}"
+                    sh 'build job: "mrdevops-cd", parameters: [string(name: "BUILDNUMBER", value: env.BUILD_NUMBER)]'      
+                    
                     echo ".........."
-                    echo "${BUILDNUMBER}"           
+                    echo "Angka VERSION = ${VERSION}"
+                    
+                               
                 }
             }
         }
