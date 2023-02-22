@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    tools{
+        maven 'maven'
+    }
+    
+    stages{
+        stage('Build Maven'){
+            steps{
+                script{
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage('Build Docker Image'){
+            steps{
+                script{
+                    sh 'docker build -t fitoni/kubernetes .'                    
+                }
+            }
+        }
+
+        stage('Push Docker Image onto Hub'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'mydockerhubpassword', variable: 'mydockerhubpassword')]) {
+                        sh 'docker login -u fitoni -p ${mydockerhubpassword}'                        
+                    }
+                    sh 'docker push fitoni/kubernetes'
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes'){
+            steps{
+                script{
+                    kubernetesDeploy (configs: 'deploymentservice.yaml',kubeconfigId: 'kubeconfig')
+                }
+            }
+        }
+    }
+}
