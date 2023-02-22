@@ -41,11 +41,11 @@ pipeline {
         stage('Update kubernetes deployment file'){
             steps{
                 script{
-                    sh '''
+                    sh """
                         cat deploymentservice.yaml
-                        sed -i 's+fitoni/mrdevops-gitops.*+fitoni/mrdevops-gitops:${VERSION}+g' deploymentservice.yaml    
+                        sed -i 's+fitoni/mrdevops-gitops.*+fitoni/mrdevops-gitops:${VERSION}+g' deploymentservice.yaml
                         cat deploymentservice.yaml
-                    '''                       
+                    """                       
                 }
             }
         }
