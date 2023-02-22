@@ -11,7 +11,7 @@ public class DevopsIntegrationApplication {
 
 	@GetMapping
 	public String message() {
-		return "Hore!!! Ini adalah data dari aplikasi web Java Spring Boot di cluster Kubernetes.";
+		return "Hore!!! Sukses skenario tutorial Jenkins-Git-ArgoCD-Kubernetes.";
 	}
 
 	public static void main(String[] args) {

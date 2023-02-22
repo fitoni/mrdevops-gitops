@@ -24,7 +24,7 @@ pipeline {
             }
         }
 
-         stage('Push Docker Image onto Hub'){
+        stage('Push Docker Image onto Hub'){
             steps{
                 script{
                      withCredentials([string(credentialsId: 'dockerhubpassword', variable: 'dockerhubpassword')]) {
@@ -34,6 +34,18 @@ pipeline {
                             docker rmi fitoni/mrdevops-gitops:${VERSION}
                         '''                        
                     } 
+                }
+            }
+        }
+
+        stage('Update kubernetes deployment file'){
+            steps{
+                script{
+                    sh '''
+                        cat deploymentservice.yml
+                        sed -i 's+fitoni/mrdevops-gitops.*+fitoni/mrdevops-gitops:${VERSION}+g' deployment.yaml    
+                        cat deploymentservice.yml
+                    '''                       
                 }
             }
         }
