@@ -11,7 +11,8 @@ public class DevopsIntegrationApplication {
 
 	@GetMapping
 	public String message() {
-		return "Hore!!! Sukses skenario tutorial Jenkins-Git-ArgoCD-Kubernetes.";
+		// return "Hore!!! Sukses skenario tutorial Jenkins-Git-ArgoCD-Kubernetes.";
+		return "<b> I LOVE OPEN SOURCE TECHNOLOGY</b>";
 	}
 
 	public static void main(String[] args) {
