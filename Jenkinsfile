@@ -41,7 +41,8 @@ pipeline {
         stage('Build downstream job - (CD Part)'){
             steps{
                 script{
-                    sh "build(job: 'mrdevops-cd', parameters: [string(name: 'BUILDNUMBER', value: ${VERSION})])"                      
+                    //sh "build(job: 'mrdevops-cd', parameters: [string(name: 'BUILDNUMBER', value: ${VERSION})])"     
+                    sh 'build(job: mrdevops-cd, parameters: [string(name: 'BUILDNUMBER', value: '8')])'                 
                 }
             }
         }
