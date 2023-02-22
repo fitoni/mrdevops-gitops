@@ -19,7 +19,7 @@ pipeline {
         stage('Build Docker Image'){
             steps{
                 script{
-                    sh 'docker build -t fitoni/sureshrajuvetukuri:${VERSION} .'                    
+                    sh 'docker build -t fitoni/mrdevops-gitops:${VERSION} .'                    
                 }
             }
         }
@@ -30,20 +30,20 @@ pipeline {
                      withCredentials([string(credentialsId: 'dockerhubpassword', variable: 'dockerhubpassword')]) {
                         sh '''
                             echo $dockerhubpassword | docker login -u fitoni --password-stdin https://index.docker.io/v1/
-                            docker push fitoni/sureshrajuvetukuri:${VERSION}
-                            docker rmi fitoni/sureshrajuvetukuri:${VERSION}
+                            docker push fitoni/mrdevops-gitops:${VERSION}
+                            docker rmi fitoni/mrdevops-gitops:${VERSION}
                         '''                        
                     } 
                 }
             }
         }
 
-        stage('Deploy to GCP-Kubernetes Cluster'){
+       /*  stage('Deploy to GCP-Kubernetes Cluster'){
             steps{
                 script{
                     kubernetesDeploy (configs: 'deploymentservice.yaml', kubeconfigId: 'kubeconfig')
                 }
             }
-        }  
+        }   */
     }
 }
