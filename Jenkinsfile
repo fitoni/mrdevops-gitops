@@ -55,11 +55,11 @@ pipeline {
                 script{
                     withCredentials([usernamePassword(credentialsId: 'github-account', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     sh """
-                        git config user.email 'fitoni77@gmail.com'
-                        git config user.name 'fitoni'
+                        git config user.email fitoni77@gmail.com
+                        git config user.name fitoni
                         git add deploymentservice.yaml
-                        git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'
-                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/mrdevops-gitops.git HEAD:main
+                        git commit -m "Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}"
+                        git push https://fitoni:${GIT_PASSWORD}@github.com/fitoni/mrdevops-gitops.git HEAD:main
                     """     
                     }                    
                 }
