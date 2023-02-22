@@ -38,7 +38,7 @@ pipeline {
             }
         }
 
-        stage('Update kubernetes deployment file'){
+        stage('Update newest tag in kubernetes deployment file in jenkins local worskpace'){
             steps{
                 script{
                     sh """
@@ -46,6 +46,24 @@ pipeline {
                         sed -i 's+fitoni/mrdevops-gitops.*+fitoni/mrdevops-gitops:${VERSION}+g' deploymentservice.yaml
                         cat deploymentservice.yaml
                     """                       
+                }
+            }
+        }
+
+        stage('Push updated kubernetes deployment file onto GitHub'){
+            steps{
+                script{
+                    sh """
+                        git config user.email 'fitoni77@gmail.com'
+                        git config user.name 'fitoni'
+                        git add deploymentservice.yaml
+                        git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'
+                    """     
+                    withCredentials([gitUsernamePassword(credentialsId: 'github-account', gitToolName: 'Default')]) {
+                        echo "Sukses login ke GitHub via Jenkins API"
+                        echo "..........."
+                        sh "git push https://github.com/fitoni/mrdevops-gitops.git main"
+                    }                                      
                 }
             }
         }
