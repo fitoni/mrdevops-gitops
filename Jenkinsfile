@@ -42,9 +42,9 @@ pipeline {
             steps{
                 script{
                     sh '''
-                        cat deploymentservice.yml
-                        sed -i 's+fitoni/mrdevops-gitops.*+fitoni/mrdevops-gitops:${VERSION}+g' deployment.yaml    
-                        cat deploymentservice.yml
+                        cat deploymentservice.yaml
+                        sed -i 's+fitoni/mrdevops-gitops.*+fitoni/mrdevops-gitops:${VERSION}+g' deploymentservice.yaml    
+                        cat deploymentservice.yaml
                     '''                       
                 }
             }
