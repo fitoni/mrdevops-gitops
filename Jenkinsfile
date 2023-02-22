@@ -42,7 +42,10 @@ pipeline {
             steps{
                 script{
                     //sh "build(job: 'mrdevops-cd', parameters: [string(name: 'BUILDNUMBER', value: ${VERSION})])"     
-                    sh 'build(job: mrdevops-cd, parameters: [string(name: 'BUILDNUMBER', value: '8')])'                 
+                    //sh 'build(job: mrdevops-cd, parameters: [string(name: 'BUILDNUMBER', value: '8')])'      
+                    echo "${VERSION}"
+                    echo ".........."
+                    echo "${BUILDNUMBER}"           
                 }
             }
         }
