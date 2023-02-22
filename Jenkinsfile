@@ -40,14 +40,8 @@ pipeline {
 
         stage('Build downstream job - (CD Part)'){
             steps{
-                script{
-                    //sh "build(job: 'mrdevops-cd', parameters: [string(name: 'BUILDNUMBER', value: ${VERSION})])"     
-                    build(job: 'mrdevops-cd', parameters: [string(name: 'BUILDNUMBER', value: "${VERSION}")]) 
-                    
-                    echo ".........."
-                    echo "Angka VERSION = ${VERSION}"
-                    
-                               
+                script{                      
+                    build(job: 'mrdevops-cd', parameters: [string(name: 'BUILDNUMBER', value: "${VERSION}")])                               
                 }
             }
         }
